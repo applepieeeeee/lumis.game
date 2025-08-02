@@ -1,5 +1,13 @@
 # lumis.game ~ 
 
+### color palette
+##### #f0d6ce
+##### #90b975ff
+##### #c29c7dff
+##### #d3a6a6ff
+##### #354631ff 
+##### #d4b19c
+
 ## credits & attributions
 ### music
 #####
