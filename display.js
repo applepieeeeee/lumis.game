@@ -9,7 +9,8 @@ function preload(){
 
 /* SETUP RUNS ONCE */
 function setup() {
-  createCanvas(400,400);
+  let cnv = createCanvas(400, 400);
+  cnv.parent('canvas-container');
   background('#a79275ff');
 }
 
