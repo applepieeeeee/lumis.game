@@ -7,6 +7,9 @@
 ##### #d3a6a6ff
 ##### #354631ff 
 ##### #d4b19c
+##### #f8e4c4
+##### #faf6ebff
+
 
 ## credits & attributions
 ### music

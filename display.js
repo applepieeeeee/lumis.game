@@ -14,7 +14,15 @@ function setup() {
   // Create a canvas and set its parent to the 'canvas-container' div
   let cnv = createCanvas(1000, 700);
   cnv.parent('canvas-container');
-  background('#a79275ff');
+  background('#f8e4c4');
+
+  textAlign(CENTER);
+  textFont(font);
+
+  // Create the rounded corners
+  noStroke();
+  fill("#faf6ebff"); 
+  rect(0, 0, 1000, 700, 40);
 
 }
 
