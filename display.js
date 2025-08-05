@@ -8,6 +8,7 @@ let homeButton;
 let backToGameButton;
 
 let shopIcon;
+let directions;
 
 // Game graphics;
 let plot;
@@ -29,7 +30,7 @@ const goal = 1000;
   let barY = 50;
   let progressPercentage = currentHopePoints / goal;
 
-let gameState = 'start'; // can be start, game, or shop.
+
 
 /* PRELOAD LOADS FILES */
 function preload(){
@@ -82,6 +83,12 @@ function setup() {
   homeButton.collider = "k";
   homeButton.img = loadImage('icons/home.png');
 
+  directions = new Sprite(90, 600);
+  directions.w = 150;
+  directions.h = 70;
+  directions.collider = "k";
+  directions.img = loadImage('icons/directions.png');
+
   // Place game components off-screen initially
   plot = new Sprite(-1000, -1000);
   shopIcon = new Sprite(-1000, -1000);
@@ -114,6 +121,12 @@ function draw() {
   textSize(20);
   text('home <3', 80, 110);
 
+  // Directions Text
+  fill("#446634ff");
+  noStroke();
+  textSize(20);
+  text("directions", 90, 670);
+
   showProgressBar();
 
   // Display startButton
@@ -145,6 +158,10 @@ function draw() {
     showGameScreen();
   }
 
+  if (directions.mouse.presses()){
+    showDirections();
+  }
+
 }
 
 
@@ -165,7 +182,6 @@ function touchStarted() {
 
 function showStartScreen() {
   print("showStartScreen called");
-  gameState = 'start';
 
   // Clear the canvas
   noStroke();
@@ -214,7 +230,6 @@ function showStartScreen() {
 
 function showGameScreen() {
   print("showGameScreen called");
-  gameState = 'game';
 
   // Clear the canvas
   noStroke();
@@ -284,7 +299,6 @@ function showProgressBar(){
 
 function showShop(){
   print("Shop screen showing. function showShop() is called.");
-  gameState = 'shop';
 
   // Clear the canvas
   noStroke();
@@ -314,4 +328,33 @@ function showShop(){
   };
 
 
+}
+
+function showDirections(){
+  print("showDirections called. showing directions");
+
+  // Clear the canvas
+  noStroke();
+  fill("#faf6ebff"); 
+  rect(0, 0, 1000, 700, 40);
+
+  plot.pos = { x: -1000, y: -1000 };
+  shopIcon.pos = { x: -1000, y: -1000 };
+  
+  fill('#446634ff');
+  textFont(font);
+  textSize(40);
+  text('Directions', width / 2, 180);
+
+  textFont(italic_font);
+  textSize(15);
+  textAlign(LEFT);
+  text('Goal: Cultivate a thriving garden to reach 1000 Hope Points.', 150, 250);
+  text('The Plot: Start with 2 unlocked plots. Earn Hope Points to unlock more.', 150, 290);
+  text('Water: Gather from the well (refills every 10s). Click plants to water them.', 150, 330);
+  text('Fertilizer: Randomly drops (every 90s). Use to grow plants faster.', 150, 370);
+  text('Seeds: Buy different seeds in the shop to get different plants.', 150, 410);
+  text('Hope Points: Earned by growing plants to maturity.', 150, 450);
+  
+  textAlign(CENTER);
 }
