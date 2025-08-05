@@ -340,6 +340,14 @@ function showDirections(){
 
   plot.pos = { x: -1000, y: -1000 };
   shopIcon.pos = { x: -1000, y: -1000 };
+
+  backToGameButton.img = loadImage('icons/back.png');
+  backToGameButton.w = 100;
+  backToGameButton.h = 100;
+  backToGameButton.pos = {
+    x: 85,
+    y: 170
+  };
   
   fill('#446634ff');
   textFont(font);
