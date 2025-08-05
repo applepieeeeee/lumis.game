@@ -162,7 +162,13 @@ function showStartScreen() {
   textFont(italic_font);
   textSize(20);
   text('press the button to start', width / 2, height / 2 - 10);
-  
+
+  fill('#f0d6ce');
+  rect(width/2 - 225, 23, 450, 40, 20);
+
+  fill('#446634ff');
+  text('// press anywhere to start music', width / 2, 50);
+
   // Start button
   startButton.pos = {
     x: width / 2,
