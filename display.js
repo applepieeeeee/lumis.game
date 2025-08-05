@@ -83,7 +83,7 @@ function setup() {
   homeButton.collider = "k";
   homeButton.img = loadImage('icons/home.png');
 
-  directions = new Sprite(90, 600);
+  directions = new Sprite(width - 90, 600);
   directions.w = 150;
   directions.h = 70;
   directions.collider = "k";
@@ -125,7 +125,7 @@ function draw() {
   fill("#446634ff");
   noStroke();
   textSize(20);
-  text("directions", 90, 670);
+  text("directions", width - 90, 670);
 
   showProgressBar();
 
