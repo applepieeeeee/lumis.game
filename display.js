@@ -5,6 +5,9 @@ let italic_font;
 // Buttons
 let startButton;
 let homeButton;
+let backToGameButton;
+
+let shopIcon;
 
 // Game graphics;
 let plot;
@@ -67,6 +70,8 @@ function setup() {
 
   // Place game components off-screen initially
   plot = new Sprite(-1000, -1000);
+  shopIcon = new Sprite(-1000, -1000);
+  backToGameButton = new Sprite(-1000, -1000);
 
   // Default screen
   showStartScreen();
@@ -103,6 +108,7 @@ function draw() {
   startButton.text = "start game";
   startButton.textColor = '#fff3e7ff'
 
+
   // Conditionals for the buttons
   // Check if startButton is pressed
   if (startButton.mouse.presses()){
@@ -113,10 +119,32 @@ function draw() {
   if (homeButton.mouse.presses()){
     showStartScreen();
   }
+
+  if (shopIcon.mouse.presses()){
+    showShop();
+  }
+
+  if (backToGameButton.mouse.presses()){
+    showGameScreen();
+  }
+
 }
 
 
 /* FUNCTIONS */
+
+/* MUSIC FUNCS */
+function mousePressed() {
+  if (getAudioContext().state !== 'running') {
+    userStartAudio();
+  }
+}
+
+function touchStarted() {
+  if (getAudioContext().state !== 'running') {
+    userStartAudio();
+  }
+}
 
 function showStartScreen() {
   print("showStartScreen called");
@@ -134,7 +162,7 @@ function showStartScreen() {
   textFont(italic_font);
   textSize(20);
   text('press the button to start', width / 2, height / 2 - 10);
-
+  
   // Start button
   startButton.pos = {
     x: width / 2,
@@ -144,6 +172,12 @@ function showStartScreen() {
   // Game elements should be off screen
   // Plot position
   plot.pos = {
+    x: -1000,
+    y: -1000
+  };
+
+  // Shop icon position
+  shopIcon.pos = {
     x: -1000,
     y: -1000
   };
@@ -175,6 +209,22 @@ function showGameScreen() {
     y: height / 2 + 80
   };
 
+  // backToGameButton position
+  backToGameButton.pos = {
+    x: -1000,
+    y: -1000
+  };
+
+  // Shop icon configurations
+  shopIcon.img = loadImage('icons/shop.png');
+  shopIcon.collider = 'k';
+
+  // Shop icon position
+  shopIcon.pos = {
+    x: width - 70,
+    y: height / 2 - 170
+  };
+
   // Display game screen elements
 
   // Diplay plot
@@ -182,5 +232,32 @@ function showGameScreen() {
   plot.h = 300;
   plot.collider = "s";
   plot.img = loadImage('images/plot.png');
+
+}
+
+function showShop(){
+  print("Shop screen showing. function showShop() is called.");
+
+  // Clear the canvas
+  noStroke();
+  fill("#faf6ebff"); 
+  rect(0, 0, 1000, 700, 40);
+
+  // Remove gameScreen elements
+  // Plot position
+  plot.pos = {
+    x: -1000,
+    y: -1000
+  };
+
+  // backToGameButton
+  backToGameButton.img = loadImage('icons/back.png');
+  backToGameButton.w = 100;
+  backToGameButton.h = 100;
+  backToGameButton.pos = {
+    x: 85,
+    y: 170
+  };
+
 
 }
