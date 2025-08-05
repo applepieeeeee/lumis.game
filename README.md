@@ -3,9 +3,9 @@
 ### color palette
 ##### #f0d6ce
 ##### #90b975ff
+##### #446634ff
 ##### #c29c7dff
 ##### #d3a6a6ff
-##### #354631ff 
 ##### #d4b19c
 ##### #f8e4c4
 ##### #faf6ebff
@@ -13,9 +13,9 @@
 
 ## credits & attributions
 ### music
-#####
+##### lofi music: https://pixabay.com/music/beats-lofi-background-music-326931/
 ### images
-#####
+##### music button: https://www.pinterest.com/pin/360780620170944961/
 #####
 #####
 ### font
