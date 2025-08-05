@@ -19,6 +19,7 @@ function setup() {
   cnv.parent('canvas-container');
   background('#f3e0c6');
 
+  // Set text properties
   textAlign(CENTER);
   textFont(font);
 
@@ -42,7 +43,7 @@ function draw() {
   startButton.h = 70;
   startButton.collider = "k";
   startButton.color = "#90b975ff";
-  startButton.textSize = 20;
+  startButton.textSize = 27;
   startButton.text = "start game";
   startButton.textColor = '#fff3e7ff'
 
@@ -58,7 +59,6 @@ function draw() {
   }
 
 }
-
 
 /* FUNCTIONS */
 function showStartScreen() {
@@ -113,16 +113,14 @@ function showGameScreen() {
 
   // Home button
   homeButton.pos = {
-    x: 120,
-    y: 75
+    x: 80,
+    y: 60
   };
 
+  noStroke();
   homeButton.w = 150;
   homeButton.h = 70;
   homeButton.collider = "k";
-  homeButton.color = "#90b975ff";
-  homeButton.textSize = 20;
-  homeButton.text = "go home";
-  homeButton.textColor = '#fff3e7ff'
+  homeButton.img = loadImage('images/home.png');
 
 }
