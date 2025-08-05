@@ -18,6 +18,18 @@ let musicStarted = false;
 let musicButton;
 let isMuted = false;
 
+// Points!!
+let currentHopePoints = 0;
+const goal = 1000;
+
+  // Progress Bar Variables
+  let barWidth = 600;
+  let barHeight = 35;
+  let barX;
+  let barY = 50;
+  let progressPercentage = currentHopePoints / goal;
+
+let gameState = 'start'; // can be start, game, or shop.
 
 /* PRELOAD LOADS FILES */
 function preload(){
@@ -35,6 +47,8 @@ function setup() {
   let cnv = createCanvas(1000, 700);
   cnv.parent('canvas-container');
   background('#f3e0c6');
+
+  barX = (width - barWidth) / 2;
 
   // Set text properties
   textAlign(CENTER);
@@ -77,6 +91,7 @@ function setup() {
   showStartScreen();
 }
 
+
 /* DRAW LOOP REPEATS */
 function draw() {
 
@@ -98,6 +113,8 @@ function draw() {
   fill('#446634ff');
   textSize(20);
   text('home <3', 80, 110);
+
+  showProgressBar();
 
   // Display startButton
   startButton.w = 200;
@@ -148,6 +165,8 @@ function touchStarted() {
 
 function showStartScreen() {
   print("showStartScreen called");
+  gameState = 'start';
+
   // Clear the canvas
   noStroke();
   fill("#faf6ebff"); 
@@ -163,11 +182,8 @@ function showStartScreen() {
   textSize(20);
   text('press the button to start', width / 2, height / 2 - 10);
 
-  fill('#f0d6ce');
-  rect(width/2 - 225, 23, 450, 40, 20);
-
   fill('#446634ff');
-  text('// press anywhere to start music', width / 2, 50);
+  text('// press anywhere to start music', width / 2, 590);
 
   // Start button
   startButton.pos = {
@@ -188,10 +204,18 @@ function showStartScreen() {
     y: -1000
   };
 
+  // backToGameButton position
+  backToGameButton.pos = {
+    x: -1000,
+    y: -1000
+  };
+
 }
 
 function showGameScreen() {
   print("showGameScreen called");
+  gameState = 'game';
+
   // Clear the canvas
   noStroke();
   fill("#faf6ebff"); 
@@ -241,8 +265,26 @@ function showGameScreen() {
 
 }
 
+function showProgressBar(){
+  
+  fill('#d6d6d6ff');
+  rect(barX, barY, barWidth, barHeight, 20); 
+
+  // Draw the filled portion of the progress bar
+  fill('#90b975ff'); 
+  let filledWidth = barWidth * progressPercentage;
+  rect(barX, barY, filledWidth, barHeight, 20);
+  
+  fill('#446634ff');
+  textSize(20);
+  textFont(font);
+  text(currentHopePoints + ' / ' + goal + ' hope points', 
+      width / 2, barY + barHeight + 30);
+}
+
 function showShop(){
   print("Shop screen showing. function showShop() is called.");
+  gameState = 'shop';
 
   // Clear the canvas
   noStroke();
@@ -252,6 +294,12 @@ function showShop(){
   // Remove gameScreen elements
   // Plot position
   plot.pos = {
+    x: -1000,
+    y: -1000
+  };
+
+  // shop icon position
+  shopIcon.pos = {
     x: -1000,
     y: -1000
   };
