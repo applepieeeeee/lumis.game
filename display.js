@@ -62,6 +62,7 @@ function draw() {
 
 /* FUNCTIONS */
 function showStartScreen() {
+  print("showStartScreen called");
   // Clear the canvas
   noStroke();
   fill("#faf6ebff"); 
@@ -84,6 +85,7 @@ function showStartScreen() {
 }
 
 function showGameScreen() {
+  print("showGameScreen called");
   // Clear the canvas
   noStroke();
   fill("#faf6ebff"); 
