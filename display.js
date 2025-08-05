@@ -12,7 +12,6 @@ function preload(){
   italic_font = loadFont('fonts/italic_font.ttf');
 }
 
-
 /* SETUP RUNS ONCE */
 function setup() {
   // Create a canvas and set its parent to the 'canvas-container' div
