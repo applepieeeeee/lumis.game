@@ -6,6 +6,9 @@ let italic_font;
 let startButton;
 let homeButton;
 
+// Game graphics;
+let plot;
+
 /* PRELOAD LOADS FILES */
 function preload(){
   font = loadFont('fonts/font.ttf');
@@ -32,6 +35,9 @@ function setup() {
   startButton = new Sprite(-1000, -1000);
   homeButton = new Sprite(-1000, -1000);
 
+  // Place game components off-screen initially
+  plot = new Sprite(-1000, -1000);
+
   // Default screen
   showStartScreen();
 }
@@ -57,7 +63,6 @@ function draw() {
   if (homeButton.mouse.presses()){
     showStartScreen();
   }
-
 }
 
 /* FUNCTIONS */
@@ -87,6 +92,14 @@ function showStartScreen() {
     x: -1000,
     y: -1000
   };
+
+  // Game elements should be off screen
+  // Plot position
+  plot.pos = {
+    x: -1000,
+    y: -1000
+  };
+
 }
 
 function showGameScreen() {
@@ -95,15 +108,6 @@ function showGameScreen() {
   noStroke();
   fill("#faf6ebff"); 
   rect(0, 0, 1000, 700, 40);
-
-  // Display game screen elements
-  textSize(50);
-  fill('#000000');
-  textFont(font);
-  text('game screen', width / 2, height / 2 - 50);
-
-  textSize(30);
-  text('game is under construction', width / 2, height / 2 + 20);
 
   // Hide start button
   startButton.pos = {
@@ -117,10 +121,26 @@ function showGameScreen() {
     y: 60
   };
 
+  // Plot position
+  plot.pos = {
+    x: width / 2,
+    y: height / 2 + 80
+  };
+
+  // Display home button
   noStroke();
   homeButton.w = 150;
   homeButton.h = 70;
   homeButton.collider = "k";
-  homeButton.img = loadImage('images/home.png');
+  homeButton.img = loadImage('icons/home.png');
+
+
+  // Display game screen elements
+
+  // Diplay plot
+  plot.w = 300;
+  plot.h = 300;
+  plot.collider = "s";
+  plot.img = loadImage('images/plot.png');
 
 }
