@@ -82,6 +82,11 @@ function showStartScreen() {
     x: width / 2,
     y: height / 2 + 170
   };
+
+  homeButton.pos = {
+    x: -1000,
+    y: -1000
+  };
 }
 
 function showGameScreen() {
