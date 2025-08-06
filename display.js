@@ -48,6 +48,24 @@ const goal = 1000;
   let progressPercentage = currentHopePoints / goal;
 
 
+
+// Plants
+let basicSprout;
+let basicSeedling;
+let basicYoung;
+let basicMature;
+
+let resilientSprout;
+let resilientSeedling;
+let resilientYoung;
+let resilientMature;
+
+let hopeSprout;
+let hopeSeedling;
+let hopeYoung;
+let hopeMature;
+
+
 /* PRELOAD LOADS FILES */
 function preload(){
   font = loadFont('fonts/font.ttf');
@@ -131,6 +149,34 @@ function setup() {
   buyHope.h = 50;
   buyHope.collider = "k";
   buyHope.img = loadImage('images/hope.png');
+
+  // // INITIALIZE PLANTS
+  // basicSprout = new Sprite();
+  // basicSprout.img = loadImage('images/basicSprout.png');
+  // basicSeedling = new Sprite();
+  // basicSeedling.img = loadImage('images/basicSeedling.png');
+  // basicYoung = new Sprite();
+  // basicYoung.img = loadImage('images/basicYoung.png');
+  // basicMature = new Sprite();
+  // basicMature.img = loadImage('images/basicMature.png');
+
+  // resilientSprout = new Sprite();
+  // resilientSprout.img = loadImage('images/resilientSprout.png');
+  // resilientSeedling = new Sprite();
+  // resilientSeedling.img = loadImage('images/resilientSeedling.png');
+  // resilientYoung = new Sprite();
+  // resilientYoung.img = loadImage('images/resilientYoung.png');
+  // resilientMature = new Sprite();
+  // resilientMature.img = loadImage('images/resilientMature.png');
+
+  // hopeSprout = new Sprite();
+  // hopeSprout.img = loadImage('images/hopeSprout.png');
+  // hopeSeedling = new Sprite();
+  // hopeSeedling.img = loadImage('images/hopeSeedling.png');
+  // hopeYoung = new Sprite();
+  // hopeYoung.img = loadImage('images/hopeYoung.png');
+  // hopeMature = new Sprite();
+  // hopeMature.img = loadImage('images/hopeMature.png');
 
   // Place game components off-screen initially
   plot = new Sprite(-1000, -1000);
