@@ -112,33 +112,23 @@ function setup() {
   restartButton.text = "play again";
   restartButton.textColor = '#fff3e7ff';
 
-  buyBasicSeedButton = new Sprite(-1000, -1000);
-  buyBasicSeedButton.w = 150;
-  buyBasicSeedButton.h = 50;
-  buyBasicSeedButton.collider = "k";
-  buyBasicSeedButton.color = "#446634ff";
-  buyBasicSeedButton.textSize = 20;
-  buyBasicSeedButton.text = "Buy (5 HP)";
-  buyBasicSeedButton.textColor = '#fff3e7ff';
+  buyBasic = new Sprite(-1000, -1000);
+  buyBasic.w = 150;
+  buyBasic.h = 50;
+  buyBasic.collider = "k";
+  buyBasic.img = loadImage('images/basic.png'); 
 
-  buyResilientSeedButton = new Sprite(-1000, -1000);
-  buyResilientSeedButton.w = 150;
-  buyResilientSeedButton.h = 50;
-  buyResilientSeedButton.collider = "k";
-  buyResilientSeedButton.color = "#446634ff";
-  buyResilientSeedButton.textSize = 20;
-  buyResilientSeedButton.text = "Buy (10 HP)";
-  buyResilientSeedButton.textColor = '#fff3e7ff';
+  buyResilient = new Sprite(-1000, -1000);
+  buyResilient.w = 150;
+  buyResilient.h = 50;
+  buyResilient.collider = "k";
+  buyResilient.img = loadImage('images/resilient.png'); 
 
-  buyHopeSeedButton = new Sprite(-1000, -1000);
-  buyHopeSeedButton.w = 150;
-  buyHopeSeedButton.h = 50;
-  buyHopeSeedButton.collider = "k";
-  buyHopeSeedButton.color = "#446634ff";
-  buyHopeSeedButton.textSize = 20;
-  buyHopeSeedButton.text = "Buy (30 HP)";
-  buyHopeSeedButton.textColor = '#fff3e7ff';
-
+  buyHope = new Sprite(-1000, -1000);
+  buyHope.w = 150;
+  buyHope.h = 50;
+  buyHope.collider = "k";
+  buyHope.img = loadImage('images/hope.png');
 
   // Place game components off-screen initially
   plot = new Sprite(-1000, -1000);
@@ -154,6 +144,11 @@ function setup() {
 /* DRAW LOOP REPEATS */
 function draw() {
   checkWinCondition();
+
+  if (currentHopePoints >= goal) {
+    showEndScreen();
+    noLoop(); 
+  }
 
   if (musicButton.mouse.presses()) {
     isMuted = !isMuted;
@@ -216,6 +211,42 @@ function draw() {
     showStartScreen();
     loop(); // Restart the draw loop
   }
+
+  if (buyBasic.mouse.presses()) {
+    if (currentHopePoints >= basicCost && basicSeeds < maxSeeds) {
+      currentHopePoints -= basicCost;
+      basicSeeds++;
+      print("Bought Basic Seed. Basic Seeds: " + basicSeeds);
+    } else if (basicSeeds >= maxSeeds) {
+      print("Cannot buy Basic Seed: Limit reached!");
+    } else {
+      print("Cannot buy Basic Seed: Not enough points!");
+    }
+  }
+
+  if (buyResilient.mouse.presses()) {
+    if (currentHopePoints >= resilientCost && resilientSeeds < maxSeeds) {
+      currentHopePoints -= resilientCost;
+      resilientSeeds++;
+      print("Bought Resilient Seed. Resilient Seeds: " + resilientSeeds);
+    } else if (resilientSeeds >= maxSeeds) {
+      print("Cannot buy Resilient Seed: Limit reached!");
+    } else {
+      print("Cannot buy Resilient Seed: Not enough points!");
+    }
+  }
+
+  if (buyHope.mouse.presses()) {
+    if (currentHopePoints >= hopeCost && hopeSeeds < maxSeeds) {
+      currentHopePoints -= hopeCost;
+      hopeSeeds++;
+      print("Bought Hope Seed. Hope Seeds: " + hopeSeeds);
+    } else if (hopeSeeds >= maxSeeds) {
+      print("Cannot buy Hope Seed: Limit reached!");
+    } else {
+      print("Cannot buy Hope Seed: Not enough points!");
+    }
+  }
 }
 
 
@@ -225,6 +256,21 @@ function draw() {
 function mousePressed() {
   if (getAudioContext().state !== 'running') {
     userStartAudio();
+  }
+
+  if (mouseX > restartButton.x - restartButton.w/2 && 
+      mouseX < restartButton.x + restartButton.w/2 && 
+      mouseY > restartButton.y - restartButton.h/2 && 
+      mouseY < restartButton.y + restartButton.h/2) {
+    
+    currentHopePoints = 0;
+    basicSeeds = 0;
+    resilientSeeds = 0;
+    hopeSeeds = 0;
+
+    restartButton.pos = { x: -1000, y: -1000 }; 
+    showStartScreen();
+    loop(); 
   }
 }
 
@@ -262,23 +308,14 @@ function showStartScreen() {
   };
 
   // Game elements should be off screen
-  // Plot position
-  plot.pos = {
-    x: -1000,
-    y: -1000
-  };
-
-  // Shop icon position
-  shopIcon.pos = {
-    x: -1000,
-    y: -1000
-  };
-
-  // backToGameButton position
-  backToGameButton.pos = {
-    x: -1000,
-    y: -1000
-  };
+  directions.pos = { x: -1000, y: -1000 };
+  plot.pos = { x: -1000, y: -1000 };
+  shopIcon.pos = { x: -1000, y: -1000 };
+  backToGameButton.pos = { x: -1000, y: -1000 };
+  buyBasic.pos = { x: -1000, y: -1000 };
+  buyResilient.pos = { x: -1000, y: -1000 };
+  buyHope.pos = { x: -1000, y: -1000 };
+  restartButton.pos = { x: -1000, y: -1000 };
 
 }
 
@@ -290,29 +327,17 @@ function showGameScreen() {
   fill("#faf6ebff"); 
   rect(0, 0, 1000, 700, 40);
 
-  // Hide start button
-  startButton.pos = {
-    x: -1000,
-    y: -1000
-  };
+  startButton.pos = { x: -1000, y: -1000 };  
+  backToGameButton.pos = { x: -1000, y: -1000 };
+  buyBasic.pos = { x: -1000, y: -1000 };
+  buyResilient.pos = { x: -1000, y: -1000 };
+  buyHope.pos = { x: -1000, y: -1000 };
+  restartButton.pos = { x: -1000, y: -1000 };
 
-  // Home button
-  homeButton.pos = {
-    x: 80,
-    y: 60
-  };
+  homeButton.pos = { x: 80, y: 60 };
+  plot.pos = { x: width / 2, y: height / 2 + 80 };
+  directions.pos = { x: width - 90, y: 600 };
 
-  // Plot position
-  plot.pos = {
-    x: width / 2,
-    y: height / 2 + 80
-  };
-
-  // backToGameButton position
-  backToGameButton.pos = {
-    x: -1000,
-    y: -1000
-  };
 
   // Shop icon configurations
   shopIcon.img = loadImage('icons/shop.png');
@@ -324,13 +349,23 @@ function showGameScreen() {
     y: height / 2 - 170
   };
 
-  // Display game screen elements
-
   // Diplay plot
   plot.w = 300;
   plot.h = 300;
   plot.collider = "s";
   plot.img = loadImage('images/plot.png');
+
+  fill('#446634ff');
+  textFont(font);
+  textSize(20);
+  textAlign(LEFT);
+  text('Seeds Inventory', 30, 160);
+
+  textSize(15);
+  text('Basic: ' + basicSeeds + '/' + maxSeeds, 30, 190);
+  text('Resilient: ' + resilientSeeds + '/' + maxSeeds, 30, 220);
+  text('Hope: ' + hopeSeeds + '/' + maxSeeds, 30, 250);
+  textAlign(CENTER);
 
 }
 
@@ -365,27 +400,49 @@ function showShop(){
   rect(0, 0, 1000, 700, 40);
 
   // Remove gameScreen elements
-  // Plot position
-  plot.pos = {
-    x: -1000,
-    y: -1000
-  };
-
-  // shop icon position
-  shopIcon.pos = {
-    x: -1000,
-    y: -1000
-  };
+  plot.pos = { x: -1000, y: -1000 };
+  shopIcon.pos = { x: -1000, y: -1000 };
+  startButton.pos = { x: -1000, y: -1000 };
+  restartButton.pos = { x: -1000, y: -1000 };
 
   // backToGameButton
   backToGameButton.img = loadImage('icons/back.png');
   backToGameButton.w = 100;
   backToGameButton.h = 100;
-  backToGameButton.pos = {
-    x: 85,
-    y: 170
-  };
+  backToGameButton.pos = { x: 85, y: 170 };
 
+  // Shop title
+  fill('#446634ff');
+  textFont(font);
+  textSize(40);
+  text('Seed Shop', width / 2, 180);
+
+
+
+  // Display seed options
+  textFont(italic_font);
+  textSize(25);
+  textAlign(LEFT);
+
+  // Basic Seed
+  text('basic seed', 200, 280);
+  text('cost: ' + basicCost + ' hp', 200, 310);
+  text('owned: ' + basicSeeds + '/' + maxSeeds, 200, 340);
+  buyBasic.pos = { x: 450, y: 310 };
+
+  // Resilient Seed
+  text('resilient seed', 200, 400);
+  text('cost: ' + resilientCost + ' hp', 200, 430);
+  text('owned: ' + resilientSeeds + '/' + maxSeeds, 200, 460);
+  buyResilient.pos = { x: 450, y: 430 };
+
+  // Hope Seed
+  text('hope seed', 200, 520);
+  text('cost: ' + hopeCost + ' hp', 200, 550);
+  text('owned: ' + hopeSeeds + '/' + maxSeeds, 200, 580);
+  buyHope.pos = { x: 450, y: 550 };
+
+  textAlign(CENTER); // Reset text alignment
 
 }
 
@@ -399,6 +456,9 @@ function showDirections(){
 
   plot.pos = { x: -1000, y: -1000 };
   shopIcon.pos = { x: -1000, y: -1000 };
+  buyBasic.pos = { x: -1000, y: -1000 };
+  buyResilient.pos = { x: -1000, y: -1000 };
+  buyHope.pos = { x: -1000, y: -1000 };
 
   backToGameButton.img = loadImage('icons/back.png');
   backToGameButton.w = 100;
