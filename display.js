@@ -27,6 +27,8 @@ const hopeCost = 30;
 let shopIcon;
 let directions;
 
+let shopOpen = false;
+
 // Game graphics;
 let plot;
 
@@ -251,13 +253,29 @@ function draw() {
   if (homeButton.mouse.presses()){
     showStartScreen();
   }
-
+  
   if (shopIcon.mouse.presses()){
+    shopOpen = true;
     showShop();
+    textAlign(LEFT);
+  } 
+
+  if (shopOpen){
+    // Clear old text before redrawing
+    noStroke();
+    fill("#faf6ebff"); 
+    rect(190, 315, 300, 30);
+    rect(190, 435, 300, 30);
+    rect(190, 555, 300, 30);
+
+    fill('#446634ff');
+    noStroke();
+    textSize(20);
     textAlign(LEFT);
     text('owned: ' + basicSeeds + '/' + maxSeeds, 200, 340);
     text('owned: ' + resilientSeeds + '/' + maxSeeds, 200, 460);
     text('owned: ' + hopeSeeds + '/' + maxSeeds, 200, 580);
+    textAlign(CENTER);
   }
 
   if (backToGameButton.mouse.presses()){
@@ -482,6 +500,7 @@ function showProgressBar(){
 }
 
 function showShop(){
+  shopOpen = true;
   print("Shop screen showing. function showShop() is called.");
 
   // Clear the canvas
@@ -517,19 +536,19 @@ function showShop(){
   // Basic Seed
   text('basic seed', 200, 280);
   text('cost: ' + basicCost + ' hp', 200, 310);
-  // text('owned: ' + basicSeeds + '/' + maxSeeds, 200, 340);
+  text('owned: ' + basicSeeds + '/' + maxSeeds, 200, 340);
   buyBasic.pos = { x: 450, y: 310 };
 
   // Resilient Seed
   text('resilient seed', 200, 400);
   text('cost: ' + resilientCost + ' hp', 200, 430);
-  // text('owned: ' + resilientSeeds + '/' + maxSeeds, 200, 460);
+  text('owned: ' + resilientSeeds + '/' + maxSeeds, 200, 460);
   buyResilient.pos = { x: 450, y: 430 };
 
   // Hope Seed
   text('hope seed', 200, 520);
   text('cost: ' + hopeCost + ' hp', 200, 550);
-  // text('owned: ' + hopeSeeds + '/' + maxSeeds, 200, 580);
+  text('owned: ' + hopeSeeds + '/' + maxSeeds, 200, 580);
   buyHope.pos = { x: 450, y: 550 };
 
   textAlign(CENTER); // Reset text alignment
