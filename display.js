@@ -19,7 +19,7 @@ let hopeSeeds = 0;
 let maxSeeds = 3;
 
 // Costs for seeds
-const basicCost = 0;
+const basicCost = 5;
 const resilientCost = 10;
 const hopeCost = 30;
 
@@ -378,6 +378,7 @@ function touchStarted() {
 }
 
 function showStartScreen() {
+  shopOpen = false;
   print("showStartScreen called");
 
   // Clear the canvas
@@ -419,6 +420,7 @@ function showStartScreen() {
 }
 
 function showGameScreen() {
+  shopOpen = false;
   print("showGameScreen called");
 
   // Clear the canvas
@@ -556,6 +558,7 @@ function showShop(){
 }
 
 function showDirections(){
+  shopOpen = false;
   print("showDirections called. showing directions");
 
   // Clear the canvas
@@ -604,6 +607,7 @@ function checkWinCondition() {
 }
 
 function showEndScreen() {
+  shopOpen = false;
   print("showEndScreen called");
 
   // Clear the canvas
