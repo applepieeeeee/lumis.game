@@ -48,7 +48,6 @@ const goal = 1000;
   let progressPercentage = currentHopePoints / goal;
 
 
-
 // Plants
 let basicSprout;
 let basicSeedling;
@@ -64,6 +63,13 @@ let hopeSprout;
 let hopeSeedling;
 let hopeYoung;
 let hopeMature;
+
+let well; // sprite for the well
+let waterDrops = 0; // water inventory
+let wellWater = 3; // amount of water in the well
+const wellCapacity = 3; // the maximum amount of water the well can hold
+let lastWellRefillTime = 0; // time when the well was last refilled
+const wellRefillInterval = 10000; // how often the well refills (in milliseconds)
 
 
 /* PRELOAD LOADS FILES */
@@ -184,6 +190,12 @@ function setup() {
   backToGameButton = new Sprite(-1000, -1000);
   restartButton.pos = { x: -1000, y: -1000 };
 
+  well = new Sprite(-1000, -1000);
+  well.img = loadImage('images/well.png');
+  well.w = 200;
+  well.h = 200;
+  well.collider = 'k';
+
   // Default screen
   showStartScreen();
 }
@@ -300,6 +312,20 @@ function draw() {
       print("Cannot buy Hope Seed: Not enough points!");
     }
   }
+
+  if (well.mouse.presses() && wellWater > 0) {
+    print("Well pressed. Current water: " + wellWater);
+    waterDrops++;
+    wellWater--;
+    print("Gathered 1 water drop. Total: " + waterDrops);
+  }
+
+  // Refill the well every 10 seconds
+  if (millis() - lastWellRefillTime >= wellRefillInterval && wellWater < wellCapacity){
+    wellWater++;
+    lastWellRefillTime = millis();
+    print("Well refilled. Current water: " + wellWater);
+  } 
 }
 
 
@@ -369,6 +395,9 @@ function showStartScreen() {
   buyHope.pos = { x: -1000, y: -1000 };
   restartButton.pos = { x: -1000, y: -1000 };
 
+  well.pos = { x: -1000, y: -1000 };
+
+
 }
 
 function showGameScreen() {
@@ -390,6 +419,7 @@ function showGameScreen() {
   plot.pos = { x: width / 2, y: height / 2 + 80 };
   directions.pos = { x: width - 90, y: 600 };
 
+  well.pos = { x: 80, y: height / 2 + 60};
 
   // Shop icon configurations
   shopIcon.img = loadImage('icons/shop.png');
@@ -417,6 +447,14 @@ function showGameScreen() {
   text('Basic: ' + basicSeeds + '/' + maxSeeds, 30, 190);
   text('Resilient: ' + resilientSeeds + '/' + maxSeeds, 30, 220);
   text('Hope: ' + hopeSeeds + '/' + maxSeeds, 30, 250);
+  textAlign(CENTER);
+
+  // Display water count and well water
+  textAlign(LEFT);
+  textSize(15);
+  textFont(font);
+  text('water count: ' + waterDrops, 30, 520);
+  text('well: ' + wellWater + '/' + wellCapacity, 30, 500);
   textAlign(CENTER);
 
 }
@@ -456,6 +494,7 @@ function showShop(){
   shopIcon.pos = { x: -1000, y: -1000 };
   startButton.pos = { x: -1000, y: -1000 };
   restartButton.pos = { x: -1000, y: -1000 };
+  well.pos = { x: -1000, y: -1000 };
 
   // backToGameButton
   backToGameButton.img = loadImage('icons/back.png');
@@ -510,6 +549,7 @@ function showDirections(){
   buyBasic.pos = { x: -1000, y: -1000 };
   buyResilient.pos = { x: -1000, y: -1000 };
   buyHope.pos = { x: -1000, y: -1000 };
+  well.pos = { x: -1000, y: -1000 };
 
   backToGameButton.img = loadImage('icons/back.png');
   backToGameButton.w = 100;
@@ -552,30 +592,13 @@ function showEndScreen() {
   fill("#faf6ebff"); 
   rect(0, 0, 1000, 700, 40);
 
-  backToGameButton.pos = {
-    x: -1000,
-    y: -1000
-  };
+  backToGameButton.pos = { x: -1000, y: -1000 };
+  directions.pos = { x: -1000, y: -1000 };
+  shopIcon.pos = { x: -1000, y: -1000 };
+  plot.pos = { x: -1000, y: -1000 };
+  startButton.pos = { x: -1000, y: -1000 };
+  well.pos = { x: -1000, y: -1000 };
 
-  directions.pos = {
-    x: -1000,
-    y: -1000
-  };
-
-  shopIcon.pos = {
-    x: -1000,
-    y: -1000
-  };
-
-  plot.pos = {
-    x: -1000,
-    y: -1000
-  };
-
-  startButton.pos = {
-    x: -1000,
-    y: -1000
-  };
 
   // Display end screen elements
   textSize(50);
