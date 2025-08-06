@@ -66,7 +66,7 @@ let hopeMature;
 
 let well; // sprite for the well
 let waterDrops = 0; // water inventory
-let wellWater = 3; // amount of water in the well
+let wellWater = 0; // amount of water in the well
 const wellCapacity = 3; // the maximum amount of water the well can hold
 let lastWellRefillTime = 0; // time when the well was last refilled
 const wellRefillInterval = 10000; // how often the well refills (in milliseconds)
@@ -419,7 +419,7 @@ function showGameScreen() {
   plot.pos = { x: width / 2, y: height / 2 + 80 };
   directions.pos = { x: width - 90, y: 600 };
 
-  well.pos = { x: 80, y: height / 2 + 60};
+  well.pos = { x: 80, y: height / 2 + 30 };
 
   // Shop icon configurations
   shopIcon.img = loadImage('icons/shop.png');
