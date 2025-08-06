@@ -12,7 +12,7 @@ let buyBasic;
 let buyResilient;
 let buyHope;
 
-let basicSeeds = 0;
+let basicSeeds = 1;
 let resilientSeeds = 0;
 let hopeSeeds = 0;
 let maxSeeds = 3;
@@ -308,7 +308,6 @@ function showStartScreen() {
   };
 
   // Game elements should be off screen
-  directions.pos = { x: -1000, y: -1000 };
   plot.pos = { x: -1000, y: -1000 };
   shopIcon.pos = { x: -1000, y: -1000 };
   backToGameButton.pos = { x: -1000, y: -1000 };
