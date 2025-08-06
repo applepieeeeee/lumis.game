@@ -6,6 +6,21 @@ let italic_font;
 let startButton;
 let homeButton;
 let backToGameButton;
+let restartButton;
+
+let buyBasic;
+let buyResilient;
+let buyHope;
+
+let basicSeeds = 0;
+let resilientSeeds = 0;
+let hopeSeeds = 0;
+let maxSeeds = 3;
+
+const basicCost = 5;
+const resilientCost = 10;
+const hopeCost = 30;
+
 
 let shopIcon;
 let directions;
@@ -29,7 +44,6 @@ const goal = 1000;
   let barX;
   let barY = 50;
   let progressPercentage = currentHopePoints / goal;
-
 
 
 /* PRELOAD LOADS FILES */
@@ -89,10 +103,48 @@ function setup() {
   directions.collider = "k";
   directions.img = loadImage('icons/directions.png');
 
+  restartButton = new Sprite();
+  restartButton.w = 200;
+  restartButton.h = 70;
+  restartButton.collider = "k";
+  restartButton.color = "#90b975ff";
+  restartButton.textSize = 27;
+  restartButton.text = "play again";
+  restartButton.textColor = '#fff3e7ff';
+
+  buyBasicSeedButton = new Sprite(-1000, -1000);
+  buyBasicSeedButton.w = 150;
+  buyBasicSeedButton.h = 50;
+  buyBasicSeedButton.collider = "k";
+  buyBasicSeedButton.color = "#446634ff";
+  buyBasicSeedButton.textSize = 20;
+  buyBasicSeedButton.text = "Buy (5 HP)";
+  buyBasicSeedButton.textColor = '#fff3e7ff';
+
+  buyResilientSeedButton = new Sprite(-1000, -1000);
+  buyResilientSeedButton.w = 150;
+  buyResilientSeedButton.h = 50;
+  buyResilientSeedButton.collider = "k";
+  buyResilientSeedButton.color = "#446634ff";
+  buyResilientSeedButton.textSize = 20;
+  buyResilientSeedButton.text = "Buy (10 HP)";
+  buyResilientSeedButton.textColor = '#fff3e7ff';
+
+  buyHopeSeedButton = new Sprite(-1000, -1000);
+  buyHopeSeedButton.w = 150;
+  buyHopeSeedButton.h = 50;
+  buyHopeSeedButton.collider = "k";
+  buyHopeSeedButton.color = "#446634ff";
+  buyHopeSeedButton.textSize = 20;
+  buyHopeSeedButton.text = "Buy (30 HP)";
+  buyHopeSeedButton.textColor = '#fff3e7ff';
+
+
   // Place game components off-screen initially
   plot = new Sprite(-1000, -1000);
   shopIcon = new Sprite(-1000, -1000);
   backToGameButton = new Sprite(-1000, -1000);
+  restartButton.pos = { x: -1000, y: -1000 };
 
   // Default screen
   showStartScreen();
@@ -101,6 +153,7 @@ function setup() {
 
 /* DRAW LOOP REPEATS */
 function draw() {
+  checkWinCondition();
 
   if (musicButton.mouse.presses()) {
     isMuted = !isMuted;
@@ -121,12 +174,7 @@ function draw() {
   textSize(20);
   text('home <3', 80, 110);
 
-  // Directions Text
-  fill("#446634ff");
-  noStroke();
-  textSize(20);
-  text("directions", width - 90, 670);
-
+  progressPercentage = currentHopePoints / goal;
   showProgressBar();
 
   // Display startButton
@@ -137,7 +185,6 @@ function draw() {
   startButton.textSize = 27;
   startButton.text = "start game";
   startButton.textColor = '#fff3e7ff'
-
 
   // Conditionals for the buttons
   // Check if startButton is pressed
@@ -162,6 +209,13 @@ function draw() {
     showDirections();
   }
 
+
+  if (restartButton.mouse.presses()) {
+    restartButton.pos = { x: -1000, y: -1000 };
+    currentHopePoints = 0;
+    showStartScreen();
+    loop(); // Restart the draw loop
+  }
 }
 
 
@@ -281,14 +335,19 @@ function showGameScreen() {
 }
 
 function showProgressBar(){
-  
+  // Clear the area where the progress bar will be drawn
+  noStroke();
+  fill("#faf6ebff"); 
+  rect(barX, barY, barWidth, barHeight + 50, 20);
+
+  // Draw the background of the progress bar
   fill('#d6d6d6ff');
-  rect(barX, barY, barWidth, barHeight, 20); 
+  rect(barX, barY, barWidth, barHeight, 20, 20, 20, 20); 
 
   // Draw the filled portion of the progress bar
   fill('#90b975ff'); 
   let filledWidth = barWidth * progressPercentage;
-  rect(barX, barY, filledWidth, barHeight, 20);
+  rect(barX, barY, filledWidth, barHeight, 20, 20, 20, 20);
   
   fill('#446634ff');
   textSize(20);
@@ -365,4 +424,62 @@ function showDirections(){
   text('Hope Points: Earned by growing plants to maturity.', 150, 450);
   
   textAlign(CENTER);
+}
+
+function checkWinCondition() {
+  if (currentHopePoints >= goal) {
+    // Show end screen
+    showEndScreen();
+  }
+}
+
+function showEndScreen() {
+  print("showEndScreen called");
+
+  // Clear the canvas
+  noStroke();
+  fill("#faf6ebff"); 
+  rect(0, 0, 1000, 700, 40);
+
+  backToGameButton.pos = {
+    x: -1000,
+    y: -1000
+  };
+
+  directions.pos = {
+    x: -1000,
+    y: -1000
+  };
+
+  shopIcon.pos = {
+    x: -1000,
+    y: -1000
+  };
+
+  plot.pos = {
+    x: -1000,
+    y: -1000
+  };
+
+  startButton.pos = {
+    x: -1000,
+    y: -1000
+  };
+
+  // Display end screen elements
+  textSize(50);
+  fill('#446634ff');
+  textFont(font);
+  text('congratulations!', width / 2, height / 2 - 50);
+  
+  textFont(italic_font);
+  textSize(20);
+  text('you have reached your goal of ' + goal + ' hope points!', width / 2, height / 2 - 10);
+
+  text('you have successfully cultivated a thriving garden!', width / 2, height / 2 + 30);
+
+  restartButton.pos = {
+    x: width / 2,
+    y: height / 2 + 250
+  };
 }
