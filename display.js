@@ -12,12 +12,14 @@ let buyBasic;
 let buyResilient;
 let buyHope;
 
+// Number of seeds
 let basicSeeds = 1;
 let resilientSeeds = 0;
 let hopeSeeds = 0;
 let maxSeeds = 3;
 
-const basicCost = 5;
+// Costs for seeds
+const basicCost = 0;
 const resilientCost = 10;
 const hopeCost = 30;
 
@@ -194,6 +196,10 @@ function draw() {
 
   if (shopIcon.mouse.presses()){
     showShop();
+    textAlign(LEFT);
+    text('owned: ' + basicSeeds + '/' + maxSeeds, 200, 340);
+    text('owned: ' + resilientSeeds + '/' + maxSeeds, 200, 460);
+    text('owned: ' + hopeSeeds + '/' + maxSeeds, 200, 580);
   }
 
   if (backToGameButton.mouse.presses()){
@@ -225,6 +231,7 @@ function draw() {
   }
 
   if (buyResilient.mouse.presses()) {
+    print("Resilient Seed button pressed.");
     if (currentHopePoints >= resilientCost && resilientSeeds < maxSeeds) {
       currentHopePoints -= resilientCost;
       resilientSeeds++;
@@ -416,29 +423,28 @@ function showShop(){
   textSize(40);
   text('Seed Shop', width / 2, 180);
 
-
-
   // Display seed options
   textFont(italic_font);
   textSize(25);
   textAlign(LEFT);
 
+
   // Basic Seed
   text('basic seed', 200, 280);
   text('cost: ' + basicCost + ' hp', 200, 310);
-  text('owned: ' + basicSeeds + '/' + maxSeeds, 200, 340);
+  // text('owned: ' + basicSeeds + '/' + maxSeeds, 200, 340);
   buyBasic.pos = { x: 450, y: 310 };
 
   // Resilient Seed
   text('resilient seed', 200, 400);
   text('cost: ' + resilientCost + ' hp', 200, 430);
-  text('owned: ' + resilientSeeds + '/' + maxSeeds, 200, 460);
+  // text('owned: ' + resilientSeeds + '/' + maxSeeds, 200, 460);
   buyResilient.pos = { x: 450, y: 430 };
 
   // Hope Seed
   text('hope seed', 200, 520);
   text('cost: ' + hopeCost + ' hp', 200, 550);
-  text('owned: ' + hopeSeeds + '/' + maxSeeds, 200, 580);
+  // text('owned: ' + hopeSeeds + '/' + maxSeeds, 200, 580);
   buyHope.pos = { x: 450, y: 550 };
 
   textAlign(CENTER); // Reset text alignment
