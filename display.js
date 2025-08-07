@@ -403,6 +403,15 @@ function draw() {
     }
   }
 
+
+  if (plotMenuOpen) {
+    showPlotMenu();
+  } else {
+    noStroke();
+    fill("#faf6ebff");
+    rect(width/2 - 200, 130, 420, 90);
+  }
+
 }
 
 
