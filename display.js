@@ -299,6 +299,7 @@ function draw() {
   }
 
   if (buyBasic.mouse.presses()) {
+    print("buyBasic pressed");
     if (currentHopePoints >= basicCost && basicSeeds < maxSeeds) {
       currentHopePoints -= basicCost;
       basicSeeds++;
