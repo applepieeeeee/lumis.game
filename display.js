@@ -228,15 +228,15 @@ function setup() {
 /* DRAW LOOP REPEATS */
 function draw() {
   
-  if (plotMenuOpen) {
-    showPlotMenu();
+  // if (plotMenuOpen) {
+  //   showPlotMenu();
 
-    if (plotMenuCloseButton.visible && plotMenuCloseButton.mouse.presses()) {
-      plotMenuOpen = false;
-      plotMenuCloseButton.visible = false;
-      plotMenuCloseButton.pos = { x: -1000, y: -1000 };
-    }
-  }
+  //   if (plotMenuCloseButton.visible && plotMenuCloseButton.mouse.presses()) {
+  //     plotMenuOpen = false;
+  //     plotMenuCloseButton.visible = false;
+  //     plotMenuCloseButton.pos = { x: -1000, y: -1000 };
+  //   }
+  // }
 
   allSprites.draw();
 
