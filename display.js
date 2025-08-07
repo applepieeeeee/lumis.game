@@ -87,6 +87,8 @@ function preload(){
 /* SETUP RUNS ONCE */
 function setup() {
 
+  allSprites.autoDraw = false;
+
   music.loop();
 
   // Create a canvas and set its parent to the 'canvas-container' div
@@ -225,6 +227,19 @@ function setup() {
 
 /* DRAW LOOP REPEATS */
 function draw() {
+  
+  if (plotMenuOpen) {
+    showPlotMenu();
+
+    if (plotMenuCloseButton.visible && plotMenuCloseButton.mouse.presses()) {
+      plotMenuOpen = false;
+      plotMenuCloseButton.visible = false;
+      plotMenuCloseButton.pos = { x: -1000, y: -1000 };
+    }
+  }
+
+  allSprites.draw();
+
   checkWinCondition();
 
   if (currentHopePoints >= goal) {
@@ -259,8 +274,8 @@ function draw() {
 
     noStroke();
     fill('#faf6ebff'); 
-    rect(20, 140, 200, 150); 
-    rect(20, 480, 200, 80);
+    rect(10, 130, 90, 100); 
+    rect(10, 470, 160, 80);
     
     showGameUI();
   }
@@ -311,16 +326,9 @@ function draw() {
     textAlign(CENTER);
   }
 
-  if (plotButton1.visible && plotButton1.mouse.presses()) {
-    plotMenuOpen = true;
-    showPlotMenu();
-  } 
-
   // Handle plot menu close button click
   if (plotMenuOpen && plotMenuCloseButton.visible && plotMenuCloseButton.mouse.presses()) {
     plotMenuOpen = false;
-    plotMenuCloseButton.pos = { x: -1000, y: -1000 };
-    plotMenuCloseButton.visible = false;
   }
 
   // Check if backToGameButton is pressed
@@ -407,14 +415,9 @@ function draw() {
   }
 
 
-  if (plotMenuOpen) {
-    showPlotMenu();
-  } else {
-    noStroke();
-    fill("#faf6ebff");
-    rect(width/2 - 200, 130, 420, 90);
-  }
-
+  if (plotButton1.visible && plotButton1.mouse.presses()) {
+    plotMenuOpen = true;
+  } 
 }
 
 
@@ -449,6 +452,11 @@ function touchStarted() {
 }
 
 function showStartScreen() {
+
+  plotMenuOpen = false;
+  plotMenuCloseButton.visible = false;
+  plotMenuCloseButton.pos = { x: -1000, y: -1000 };
+
   shopOpen = false;
   print("showStartScreen called");
 
@@ -495,6 +503,10 @@ function showStartScreen() {
 }
 
 function showGameScreen() {
+  plotMenuOpen = false;
+  plotMenuCloseButton.visible = false;
+  plotMenuCloseButton.pos = { x: -1000, y: -1000 };
+
   shopOpen = false;
   print("showGameScreen called");
 
@@ -748,14 +760,16 @@ function showPlotButtons(){
 }
 
 function showPlotMenu() {
-  print("showPlotMenu called");
-  shopOpen = false;
-  plotMenuOpen = true;
+  if (!plotMenuOpen) {
+    plotMenuCloseButton.visible = false;
+    plotMenuCloseButton.pos = { x: -1000, y: -1000 };
+    return;
+  }
 
   // Draw overlay rectangle
   noStroke();
   fill('#f4dcb8ee');
-  rect(width/2 - 200, 150, 400, 70, 30);
+  rect(width/2 - 200, 150, 400, 190, 30);
 
   // Draw menu content
   fill('#446634ff');
@@ -766,10 +780,13 @@ function showPlotMenu() {
   textSize(15);
   text('Choose an action for this plot:', width/2, 205);
 
-  // Show close button in top-right of overlay
+  // Position the X button in the top-right of the overlay
   plotMenuCloseButton.pos = {
     x: width/2 + 170,
     y: 150
   };
   plotMenuCloseButton.visible = true;
+
+  // --- Draw the X button sprite manually so it's always on top ---
+  plotMenuCloseButton.draw();
 }
