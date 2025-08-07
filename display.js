@@ -311,9 +311,7 @@ function draw() {
   }
 
   // check if the resilient seed is pressed
-  print("Resilient Seed button pressed.");
   if (buyResilient.mouse.presses()) {
-    print("Resilient Seed button pressed.");
     if (currentHopePoints >= resilientCost && resilientSeeds < maxSeeds) {
       currentHopePoints -= resilientCost;
       resilientSeeds++;
@@ -326,7 +324,6 @@ function draw() {
   }
 
   // check if the hope seed is pressed
-  print("Hope Seed button pressed.");
   if (buyHope.mouse.presses()) {
     if (currentHopePoints >= hopeCost && hopeSeeds < maxSeeds) {
       currentHopePoints -= hopeCost;
