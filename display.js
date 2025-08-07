@@ -193,6 +193,7 @@ function setup() {
   plot = new Sprite(-1000, -1000);
   shopIcon = new Sprite(-1000, -1000);
   backToGameButton = new Sprite(-1000, -1000);
+  backToGameButton.rotation = 0;
   restartButton.pos = { x: -1000, y: -1000 };
 
   well = new Sprite(-1000, -1000);
@@ -202,16 +203,17 @@ function setup() {
   well.collider = 'k';
 
   plotButton1 = new Sprite(290, 500);
-  plotButton1.w = 40;
-  plotButton1.h = 40;
-  plotButton1.color = '#90b975ff';
+  plotButton1.w = 20;
+  plotButton1.h = 20;
   plotButton1.collider = 'k';
-  plotButton1.pos = { x: -1000, y: -1000 }; 
+  plotButton1.pos = { x: -1000, y: -1000 };
+  plotButton1.img = loadImage('icons/button1.png');
+
 
   plotMenuCloseButton = new Sprite(-1000, -1000);
   plotMenuCloseButton.w = 40;
   plotMenuCloseButton.h = 40;
-  plotMenuCloseButton.color = '#e57373';
+  plotMenuCloseButton.color = '#c29c7dff';
   plotMenuCloseButton.text = "X";
   plotMenuCloseButton.textColor = '#fff';
   plotMenuCloseButton.collider = 'k';
@@ -324,6 +326,7 @@ function draw() {
   // Check if backToGameButton is pressed
   if (backToGameButton.mouse.presses()){
     showGameScreen();
+    backToGameButton.rotation = 0;
   }
   
   // Check if directions button is pressed
@@ -741,7 +744,7 @@ function showGameUI() {
 }
 
 function showPlotButtons(){
-  plotButton1.visible = true;;
+  plotButton1.visible = true;
 }
 
 function showPlotMenu() {
