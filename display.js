@@ -68,7 +68,7 @@ let hopeMature;
 
 let well; // sprite for the well
 let waterDrops = 0; // water inventory
-let wellWater = 0; // amount of water in the well
+let wellWater = 3; // amount of water in the well
 const wellCapacity = 3; // the maximum amount of water the well can hold
 let lastWellRefillTime = 0; // time when the well was last refilled
 const wellRefillInterval = 10000; // how often the well refills (in milliseconds)
@@ -332,9 +332,9 @@ function draw() {
   }
 
   if (well.mouse.presses() && wellWater > 0) {
+    wellWater--;
     print("Well pressed. Current water: " + wellWater);
     waterDrops++;
-    wellWater--;
     print("Gathered 1 water drop. Total: " + waterDrops);
   }
 
@@ -473,7 +473,7 @@ function showGameScreen() {
   textAlign(LEFT);
   textSize(15);
   textFont(font);
-  text('water count: ' + waterDrops, 30, 520);
+  text('water count: ' + waterDrops, 30, 530);
   text('well: ' + wellWater + '/' + wellCapacity, 30, 500);
   textAlign(CENTER);
 
