@@ -231,6 +231,7 @@ function draw() {
   textSize(20);
   text('home <3', 80, 110);
 
+  // Update percentage for the progress bar
   progressPercentage = currentHopePoints / goal;
   showProgressBar();
 
@@ -260,6 +261,7 @@ function draw() {
     textAlign(LEFT);
   } 
 
+  // Check if shop is open
   if (shopOpen){
     // Clear old text before redrawing
     noStroke();
@@ -278,10 +280,12 @@ function draw() {
     textAlign(CENTER);
   }
 
+  // Check if backToGameButton is pressed
   if (backToGameButton.mouse.presses()){
     showGameScreen();
   }
-
+  
+  // Check if directions button is pressed
   if (directions.mouse.presses()){
     showDirections();
   }
@@ -306,6 +310,8 @@ function draw() {
     }
   }
 
+  // check if the resilient seed is pressed
+  print("Resilient Seed button pressed.");
   if (buyResilient.mouse.presses()) {
     print("Resilient Seed button pressed.");
     if (currentHopePoints >= resilientCost && resilientSeeds < maxSeeds) {
@@ -319,6 +325,8 @@ function draw() {
     }
   }
 
+  // check if the hope seed is pressed
+  print("Hope Seed button pressed.");
   if (buyHope.mouse.presses()) {
     if (currentHopePoints >= hopeCost && hopeSeeds < maxSeeds) {
       currentHopePoints -= hopeCost;
@@ -331,6 +339,7 @@ function draw() {
     }
   }
 
+  // check if the well is pressed
   if (well.mouse.presses() && wellWater > 0) {
     wellWater--;
     print("Well pressed. Current water: " + wellWater);
