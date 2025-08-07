@@ -235,6 +235,16 @@ function draw() {
   progressPercentage = currentHopePoints / goal;
   showProgressBar();
 
+  if (plot.x > 0) {
+
+    noStroke();
+    fill('#faf6ebff'); 
+    rect(20, 140, 200, 150); 
+    rect(20, 480, 200, 80);
+    
+    showGameUI();
+  }
+
   // Display startButton
   startButton.w = 200;
   startButton.h = 70;
@@ -646,4 +656,25 @@ function showEndScreen() {
     x: width / 2,
     y: height / 2 + 250
   };
+}
+
+function showGameUI() {
+    fill('#446634ff');
+    textFont(font);
+    textSize(20);
+    textAlign(LEFT);
+    text('Seeds Inventory', 30, 160);
+
+    textSize(15);
+    text('Basic: ' + basicSeeds + '/' + maxSeeds, 30, 190);
+    text('Resilient: ' + resilientSeeds + '/' + maxSeeds, 30, 220);
+    text('Hope: ' + hopeSeeds + '/' + maxSeeds, 30, 250);
+    textAlign(CENTER);
+
+    textAlign(LEFT);
+    textSize(15);
+    textFont(font);
+    text('water count: ' + waterDrops, 30, 530);
+    text('well: ' + wellWater + '/' + wellCapacity, 30, 500);
+    textAlign(CENTER);
 }
