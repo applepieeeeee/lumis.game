@@ -31,6 +31,8 @@ let shopOpen = false;
 
 // Game graphics;
 let plot;
+let plotMenuOpen = false;
+let plotMenuCloseButton;
 
 // Music
 let music;
@@ -73,6 +75,7 @@ const wellCapacity = 3; // the maximum amount of water the well can hold
 let lastWellRefillTime = 0; // time when the well was last refilled
 const wellRefillInterval = 10000; // how often the well refills (in milliseconds)
 
+let plotButton1;
 
 /* PRELOAD LOADS FILES */
 function preload(){
@@ -198,7 +201,22 @@ function setup() {
   well.h = 200;
   well.collider = 'k';
 
-  // Default screen
+  plotButton1 = new Sprite(290, 500);
+  plotButton1.w = 40;
+  plotButton1.h = 40;
+  plotButton1.color = '#90b975ff';
+  plotButton1.collider = 'k';
+  plotButton1.pos = { x: -1000, y: -1000 }; 
+
+  plotMenuCloseButton = new Sprite(-1000, -1000);
+  plotMenuCloseButton.w = 40;
+  plotMenuCloseButton.h = 40;
+  plotMenuCloseButton.color = '#e57373';
+  plotMenuCloseButton.text = "X";
+  plotMenuCloseButton.textColor = '#fff';
+  plotMenuCloseButton.collider = 'k';
+
+  // Default screen 
   showStartScreen();
 }
 
@@ -258,6 +276,7 @@ function draw() {
   // Check if startButton is pressed
   if (startButton.mouse.presses()){
     showGameScreen();
+    showPlotButtons();
   }
 
   // Check if homeButton is pressed
@@ -288,6 +307,18 @@ function draw() {
     text('owned: ' + resilientSeeds + '/' + maxSeeds, 200, 460);
     text('owned: ' + hopeSeeds + '/' + maxSeeds, 200, 580);
     textAlign(CENTER);
+  }
+
+  if (plotButton1.visible && plotButton1.mouse.presses()) {
+    plotMenuOpen = true;
+    showPlotMenu();
+  } 
+
+  // Handle plot menu close button click
+  if (plotMenuOpen && plotMenuCloseButton.visible && plotMenuCloseButton.mouse.presses()) {
+    plotMenuOpen = false;
+    plotMenuCloseButton.pos = { x: -1000, y: -1000 };
+    plotMenuCloseButton.visible = false;
   }
 
   // Check if backToGameButton is pressed
@@ -361,6 +392,17 @@ function draw() {
     lastWellRefillTime = millis();
     print("Well refilled. Current water: " + wellWater);
   } 
+  
+  if (plotMenuOpen) {
+    showPlotMenu();
+
+    if (plotMenuCloseButton.mouse.presses()) {
+      plotMenuOpen = false;
+      plotMenuCloseButton.pos = { x: -1000, y: -1000 };
+      plotMenuCloseButton.visible = false;
+    }
+  }
+
 }
 
 
@@ -431,6 +473,10 @@ function showStartScreen() {
   buyHope.pos = { x: -1000, y: -1000 };
   restartButton.pos = { x: -1000, y: -1000 };
 
+  plotMenuOpen = false;
+  plotMenuCloseButton.pos = { x: -1000, y: -1000 };
+  plotMenuCloseButton.visible = false;
+
   well.pos = { x: -1000, y: -1000 };
 
 
@@ -452,11 +498,17 @@ function showGameScreen() {
   buyHope.pos = { x: -1000, y: -1000 };
   restartButton.pos = { x: -1000, y: -1000 };
 
+  plotMenuOpen = false;
+  plotMenuCloseButton.pos = { x: -1000, y: -1000 };
+  plotMenuCloseButton.visible = false;
+
   homeButton.pos = { x: 80, y: 60 };
   plot.pos = { x: width / 2, y: height / 2 + 80 };
   directions.pos = { x: width - 90, y: 600 };
 
   well.pos = { x: 80, y: height / 2 + 30 };
+
+  plotButton1.pos = { x: 290, y: 500 };
 
   // Shop icon configurations
   shopIcon.img = loadImage('icons/shop.png');
@@ -677,4 +729,35 @@ function showGameUI() {
     text('water count: ' + waterDrops, 30, 530);
     text('well: ' + wellWater + '/' + wellCapacity, 30, 500);
     textAlign(CENTER);
+}
+
+function showPlotButtons(){
+  plotButton1.visible = true;;
+}
+
+function showPlotMenu() {
+  print("showPlotMenu called");
+  shopOpen = false;
+  plotMenuOpen = true;
+
+  // Draw overlay rectangle
+  noStroke();
+  fill('#f4dcb8ee');
+  rect(width/2 - 200, 150, 400, 70, 30);
+
+  // Draw menu content
+  fill('#446634ff');
+  textFont(font);
+  textSize(20);
+  text('Plot Menu', width/2, 180);
+
+  textSize(15);
+  text('Choose an action for this plot:', width/2, 205);
+
+  // Show close button in top-right of overlay
+  plotMenuCloseButton.pos = {
+    x: width/2 + 170,
+    y: 150
+  };
+  plotMenuCloseButton.visible = true;
 }
