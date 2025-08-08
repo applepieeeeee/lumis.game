@@ -327,9 +327,9 @@ function draw() {
   }
 
   // Handle plot menu close button click
-  if (plotMenuOpen && plotMenuCloseButton.visible && plotMenuCloseButton.mouse.presses()) {
-    plotMenuOpen = false;
-  }
+  // if (plotMenuOpen && plotMenuCloseButton.visible && plotMenuCloseButton.mouse.presses()) {
+  //   plotMenuOpen = false;
+  // }
 
   // Check if backToGameButton is pressed
   if (backToGameButton.mouse.presses()){
@@ -406,14 +406,14 @@ function draw() {
   
   if (plotMenuOpen) {
     showPlotMenu();
-
-    if (plotMenuCloseButton.mouse.presses()) {
-      plotMenuOpen = false;
-      plotMenuCloseButton.pos = { x: -1000, y: -1000 };
-      plotMenuCloseButton.visible = false;
-    }
   }
-
+                                                                                                                                                          
+  if (plotMenuCloseButton.mouse.presses()) {
+    print("closeButton pressed ********************************************");
+    plotMenuOpen = false;
+    plotMenuCloseButton.pos = { x: -1000, y: -1000 };
+    plotMenuCloseButton.visible = false;
+  }
 
   if (plotButton1.visible && plotButton1.mouse.presses()) {
     plotMenuOpen = true;
@@ -522,7 +522,6 @@ function showGameScreen() {
   buyHope.pos = { x: -1000, y: -1000 };
   restartButton.pos = { x: -1000, y: -1000 };
 
-  plotMenuOpen = false;
   plotMenuCloseButton.pos = { x: -1000, y: -1000 };
   plotMenuCloseButton.visible = false;
 
@@ -760,15 +759,15 @@ function showPlotButtons(){
 }
 
 function showPlotMenu() {
-  if (!plotMenuOpen) {
-    plotMenuCloseButton.visible = false;
-    plotMenuCloseButton.pos = { x: -1000, y: -1000 };
-    return;
-  }
+  // if (!plotMenuOpen) {
+  //   print('!plotMenuOpen***************************************************');
+  //   plotMenuCloseButton.visible = false;
+  //   plotMenuCloseButton.pos = { x: -1000, y: -1000 };
+  //   return;
+  // }
 
   // Draw overlay rectangle
-  noStroke();
-  fill('#f4dcb8ee');
+  fill('#f6ddccee');
   rect(width/2 - 200, 150, 400, 190, 30);
 
   // Draw menu content
